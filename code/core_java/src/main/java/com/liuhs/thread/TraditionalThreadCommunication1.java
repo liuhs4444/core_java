@@ -25,6 +25,7 @@ class Business {
 
     synchronized void sub(int i) {
 
+        // wait必须放在synchronized里面
         while (!bShouldSub) {
             try {
                 this.wait();
