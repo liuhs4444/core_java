@@ -25,7 +25,7 @@ class Business {
 
     synchronized void sub(int i) {
 
-        if (!bShouldSub) {
+        while (!bShouldSub) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -40,7 +40,7 @@ class Business {
     }
 
     public synchronized void main(int i) {
-        if (bShouldSub) {
+        while (bShouldSub) {
             try {
                 this.wait();
             } catch (InterruptedException ignored) {
