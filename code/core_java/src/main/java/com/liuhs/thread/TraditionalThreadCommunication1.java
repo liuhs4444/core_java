@@ -21,15 +21,35 @@ public class TraditionalThreadCommunication1 {
 
 class Business {
 
-    public synchronized void sub(int i) {
+    private boolean bShouldSub = true;
+
+    synchronized void sub(int i) {
+
+        if (!bShouldSub) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+            }
+        }
+
         for (int j = 1; j <= 10; j++) {
             System.out.println("sub thread seq of " + j + " ,loop of " + i);
         }
+        this.bShouldSub = false;
+        this.notify();
     }
 
     public synchronized void main(int i) {
+        if (bShouldSub) {
+            try {
+                this.wait();
+            } catch (InterruptedException ignored) {
+            }
+        }
         for (int j = 1; j <= 100; j++) {
             System.out.println("main thread seq of " + j + " ,loop of " + i);
         }
+        this.bShouldSub = true;
+        this.notify();
     }
 }
