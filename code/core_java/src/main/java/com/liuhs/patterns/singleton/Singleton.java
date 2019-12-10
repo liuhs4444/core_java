@@ -1,4 +1,4 @@
-package com.liuhs.singleton;
+package com.liuhs.patterns.singleton;
 
 /**
  * 单例模式1
